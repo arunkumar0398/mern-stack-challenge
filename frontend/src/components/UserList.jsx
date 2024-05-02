@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import UserItem from './UserItem';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 export default class UserList extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +14,7 @@ export default class UserList extends Component {
   }
 
   getUsers = () => {
-    axios.get('http://localhost:5000/users')
+    axios.get(`${BACKEND_URL}/users`)
       .then(res => res.data.filter(user => user.role !== 'admin'))
       .then(users => {
         if(users.length > 0) {
@@ -38,11 +38,11 @@ export default class UserList extends Component {
       reviews: this.state.review
     }
 
-    axios.put(`http://localhost:5000/users/update/${id}`, reviewObj);
+    axios.put(`${BACKEND_URL}/users/update/${id}`, reviewObj);
   }
 
   deleteUser = (id) => {
-    axios.delete(`http://localhost:5000/users/${id}`);
+    axios.delete(`${BACKEND_URL}/users/${id}`);
   }
 
   renderAdminList = () => {
